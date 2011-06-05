@@ -236,7 +236,7 @@ def my_task(request):
     else:
         return render_to_response("events/mytask.html", locals())
 
-def members_manage(reuqest):
+def members_add(reuqest):
     return HttpResponseRedirect("/")
 
 @login_required
@@ -372,6 +372,18 @@ def emergency_close(request):
             for ev in evs:
                 closeevent(ev)
                 return HttpResponseRedirect("/")
+    return HttpResponseForbidden()
+
+@login_required
+def member_overview(request):
+    user = request.user
+    organization = is_organization(user)
+    member = is_member(user)
+    volunteer = is_volunteer(user)
+    if organization:
+        org = Organization.objects.filter(Q(user__exact=user))[0]
+        mems = Member.objects.filter(Q(organization__exact=org))
+        return render_to_response("members/overview.html", locals())
     return HttpResponseForbidden()
 
 def call_volunteers(request):

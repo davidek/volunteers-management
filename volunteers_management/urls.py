@@ -39,7 +39,8 @@ urlpatterns = patterns('',
     url(r'^events/overview/$', event_overview), #list of events, per l'organization
     url(r'^events/mytask/$', my_task), #for the volunteer ; c'e` dentro il tasto 'leave'
 
-    url(r'^members/manage/', members_manage), #for the organization
+    url(r'^members/add/', members_add), #for the organization
+    url(r'^members/overview/$', members_overview), #for the organization
 
     url(r'^emergencies/join/', emergency_join), # non c'e` template: la view ti redirige alla home dopo averti aggiunto al db
     url(r'^emergencies/leave/', emergency_leave),
